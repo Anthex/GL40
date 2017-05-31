@@ -1,0 +1,78 @@
+#include "fittswindow.h"
+#include "ui_fittswindow.h"
+#include "resultswindow.h"
+
+int xa,ya,x_,y_,dim;
+int count;
+
+QTime t;
+
+fittsWindow::fittsWindow(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::fittsWindow)
+{
+    ui->setupUi(this);
+}
+
+fittsWindow::~fittsWindow()
+{
+    delete ui;
+}
+
+void fittsWindow::on_label_2_clicked()
+{
+    count++;
+    /* get mouse position and convert it into global data */
+    x_ = ui->label_2->mapFromGlobal(QCursor::pos()).x();
+    y_ = ui->label_2->mapFromGlobal(QCursor::pos()).y();
+    int elapsedTime = t.elapsed();
+    ui->label->setText(QString::number(x_) + " ; " + QString::number(y_)+"    "+ QString::number(elapsedTime));
+
+
+    QLineF line = QLineF(x_, y_, xa, ya);
+    fittsResult *res = new fittsResult(elapsedTime,0,line.length());
+
+    if(line.length() > dim){
+        ui->label->setStyleSheet("QLabel { background-color: red }"); /* hors cible */
+        count--; /* si invalide : on n'ajoute pas le résultat et on décrémente pour avoirt le bon nombre final de résultats */
+    }else{
+        ui->label->setStyleSheet("QLabel { background-color: lime }");/* sur cible  */
+        results.append(*res); /* si valide : on ajoute le résultat */
+    }
+
+    if(count > n){
+        ResultsWindow *fittsRes = new ResultsWindow();
+        fittsRes->setFittsResults(this->results);
+        fittsRes->show();
+    }
+    displayScene();
+
+}
+
+int fittsWindow::displayScene(){
+    int wid,hei;
+    t.start();
+        wid = ui->label_2->geometry().width();
+        hei = ui->label_2->geometry().height();
+
+        QPixmap pixmap(wid,hei);
+        pixmap.fill(QColor("white"));
+        QPainter painter(&pixmap);
+
+        painter.setBrush(QBrush(Qt::red));
+        dim = rand() % (max-min) + min;
+        xa = rand() % (wid - dim*2)+dim; /* pour que le cercle soit entièrement dans la fenêtre (pas de troncature pour ne pas biaiser le test) */
+        ya = rand() % (hei - dim*2)+dim;
+        painter.drawEllipse( xa, ya, dim, dim);
+        ui->label_2->setPixmap(pixmap);
+
+
+        return 0; /* TODO : RETOUR DU TEMPS ENTRE AFFICHAGE ET CLIC */
+}
+
+void fittsWindow::setData(int n_, int min_, int max_){
+    count = 0;
+    n = n_;
+    min = min_;
+    max = max_;
+}
