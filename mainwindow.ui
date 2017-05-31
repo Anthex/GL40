@@ -661,7 +661,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>&lt;Explication Fitts&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim velit, elementum eget leo in, rutrum ultricies diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </string>
+       <string>Ce test a pour but de vérifier la loi de Fitts. Il va pour cela afficher le nombre souhaité de cibles dans une fenêtre. Il faut les pointer le plus vite possible. Pour des résultats cohérents en fonction du dispositif de pointage et de la taille de l'écran, les variables par défaut sont modifiables.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
