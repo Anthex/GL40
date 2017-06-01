@@ -37,24 +37,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    int SelectedTab = ui->tabWidget->currentIndex(); //en fonction de l'onglet selectionné : test différent
+    int SelectedTab = ui->tabWidget->currentIndex(); //Each test has a dedicated tab
     switch(SelectedTab){
-        case 0:
+    case 0:
         newFittsWindow = new fittsWindow();
         newFittsWindow->setData(ui->horizontalSlider->value(), ui->horizontalSlider_2->value(), ui->horizontalSlider_3->value());
         newFittsWindow->show();
         break;
-        case 1:
+    case 1:
         newTextWindow = new textInputWindow();
         newTextWindow->show();
         break;
-        case 2:
+    case 2:
         newExplorerWindow = new explorerWindow();
         newExplorerWindow->setStart(ui->lineEdit_2->text());
         newExplorerWindow->setTarget(ui->lineEdit->text());
         newExplorerWindow->show();
         break;
-        case 3:
+    case 3:
         newCmdWindow = new cmdWindow();
         newCmdWindow->show();
         break;

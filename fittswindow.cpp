@@ -34,40 +34,36 @@ void fittsWindow::on_label_2_clicked()
 
     if(line.length() > dim){
         ui->label->setStyleSheet("QLabel { background-color: red }"); /* hors cible */
-        count--; /* si invalide : on n'ajoute pas le résultat et on décrémente pour avoirt le bon nombre final de résultats */
+        count--;                /* Off target : discard the result and undo the counter incrementation*/
     }else{
         ui->label->setStyleSheet("QLabel { background-color: lime }");/* sur cible  */
-        results.append(*res); /* si valide : on ajoute le résultat */
+        results.append(*res);   /* On target : save the result*/
     }
 
     if(count > n){
         ResultsWindow *fittsRes = new ResultsWindow();
         fittsRes->setFittsResults(this->results);
         fittsRes->show();
+        this->close();
     }
     displayScene();
-
 }
 
 int fittsWindow::displayScene(){
     int wid,hei;
     t.start();
-        wid = ui->label_2->geometry().width();
-        hei = ui->label_2->geometry().height();
-
-        QPixmap pixmap(wid,hei);
-        pixmap.fill(QColor("white"));
-        QPainter painter(&pixmap);
-
-        painter.setBrush(QBrush(Qt::red));
-        dim = rand() % (max-min) + min;
-        xa = rand() % (wid - dim*2)+dim; /* pour que le cercle soit entièrement dans la fenêtre (pas de troncature pour ne pas biaiser le test) */
-        ya = rand() % (hei - dim*2)+dim;
-        painter.drawEllipse( xa, ya, dim, dim);
-        ui->label_2->setPixmap(pixmap);
-
-
-        return 0; /* TODO : RETOUR DU TEMPS ENTRE AFFICHAGE ET CLIC */
+    wid = ui->label_2->geometry().width();
+    hei = ui->label_2->geometry().height();
+    QPixmap pixmap(wid,hei);
+    pixmap.fill(QColor("white"));
+    QPainter painter(&pixmap);
+    painter.setBrush(QBrush(Qt::red));
+    dim = rand() % (max-min) + min;
+    xa = rand() % (wid - dim*2)+dim; /* make sure the circle isn't cropped and is in an accessible zone */
+    ya = rand() % (hei - dim*2)+dim;
+    painter.drawEllipse( xa, ya, dim, dim);
+    ui->label_2->setPixmap(pixmap);
+    return 0; /* TODO : Return status */
 }
 
 void fittsWindow::setData(int n_, int min_, int max_){

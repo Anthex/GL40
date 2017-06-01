@@ -31,7 +31,7 @@ bool explorerWindow::checkIfFound(QModelIndex index){
     ui->label_2->setText("Chemin actuel : "  + currentPath);
     if (currentPath == target){
 
-        /* Juste pour test */
+        /* Testing - To implement */
         ui->label_2->setStyleSheet("QLabel { background-color : #999999; color : red; }");
         ui->label_2->setText("TROUVE");
 
