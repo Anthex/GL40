@@ -1,5 +1,5 @@
 # GL40 Fitts law and GOMS-Keystroke method visualizer
-### By [Achille DANTZ](https://achille-dantz.fr/) | Prunelle DAUDRE-TREUIL
+### By [Achille DANTZ](https://achille-dantz.fr/) | [Prunelle DAUDRE-TREUIL]
 ---
 
 This project's aim is to check whether or not Human processor models can be verified in real-world conditions.
