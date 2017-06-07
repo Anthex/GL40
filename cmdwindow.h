@@ -1,6 +1,5 @@
 #ifndef CMDWINDOW_H
 #define CMDWINDOW_H
-
 #include <QWidget>
 
 namespace Ui {

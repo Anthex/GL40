@@ -1,7 +1,6 @@
 #ifndef FITTSRESULT_H
 #define FITTSRESULT_H
 
-
 class fittsResult
 {
 public:

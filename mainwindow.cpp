@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QString>
+#include <QPixmap>
 
 QDir *directory;
 
@@ -15,6 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_5->setText(QString::number(ui->horizontalSlider->value()));
     ui->label_6->setText(QString::number(ui->horizontalSlider_2->value()));
     ui->label_7->setText(QString::number(ui->horizontalSlider_3->value()));
+
+    /* Display Fitts equation image */
+    QPixmap image("fittsEquation.png");
+    ui->label_22->setPixmap(image);
 
     /* Defining starting and target paths arbitrarily */
     QFileSystemModel *model = new QFileSystemModel;

@@ -4,7 +4,7 @@
 
 class ClickableLabel : public QLabel
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit ClickableLabel(QWidget* parent=0 );
     ~ClickableLabel();

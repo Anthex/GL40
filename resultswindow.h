@@ -1,6 +1,5 @@
 #ifndef RESULTSWINDOW_H
 #define RESULTSWINDOW_H
-
 #include <QWidget>
 #include "fittsresult.h"
 

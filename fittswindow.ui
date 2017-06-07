@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>688</width>
-    <height>479</height>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,10 @@
     <number>0</number>
    </property>
    <property name="text">
-    <string/>
+    <string>Cliquez dans cette zone pour commencer le test</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
@@ -54,9 +57,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>450</y>
-     <width>201</width>
+     <x>340</x>
+     <y>510</y>
+     <width>161</width>
      <height>16</height>
     </rect>
    </property>

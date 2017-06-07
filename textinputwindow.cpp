@@ -21,5 +21,4 @@ void textInputWindow::on_textEdit_textChanged()
 void textInputWindow::changeLetter()
 {
     //ui->textEdit_2->setText(corpus.);//TODO
-
 }
