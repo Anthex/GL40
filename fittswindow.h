@@ -21,13 +21,13 @@ private slots:
     void on_label_2_clicked();
 
 public slots:
-    int displayScene();
+    void displayScene();
     void setData(int,int,int);
 
 private:
     Ui::fittsWindow *ui;
     /* Default values */
-    int n=10, min=50, max=100;
+    int n=5, min=50, max=100;
     QList<fittsResult> results;
 };
 

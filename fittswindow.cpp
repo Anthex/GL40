@@ -21,7 +21,6 @@ fittsWindow::~fittsWindow()
 
 void fittsWindow::on_label_2_clicked()
 {
-    count++;
     /* get mouse position and convert it into global data */
     x_ = ui->label_2->mapFromGlobal(QCursor::pos()).x();
     y_ = ui->label_2->mapFromGlobal(QCursor::pos()).y();
@@ -32,12 +31,13 @@ void fittsWindow::on_label_2_clicked()
     QLineF line = QLineF(x_, y_, xa, ya);
     fittsResult *res = new fittsResult(elapsedTime,0,line.length());
 
-    if(line.length() > dim){
+    if(line.length() > dim && elapsedTime > 0){
         ui->label->setStyleSheet("QLabel { background-color: red }"); /* hors cible */
-        count--;                /* Off target : discard the result and undo the counter incrementation*/
+        /* Off target : discard the result don't increment*/
     }else{
         ui->label->setStyleSheet("QLabel { background-color: lime }");/* sur cible  */
         results.append(*res);   /* On target : save the result*/
+        count++;
     }
 
     if(count > n){
@@ -49,7 +49,7 @@ void fittsWindow::on_label_2_clicked()
     displayScene();
 }
 
-int fittsWindow::displayScene(){
+void fittsWindow::displayScene(){
     int wid,hei;
     t.start();
     wid = ui->label_2->geometry().width();
@@ -57,13 +57,12 @@ int fittsWindow::displayScene(){
     QPixmap pixmap(wid,hei);
     pixmap.fill(QColor("white"));
     QPainter painter(&pixmap);
-    painter.setBrush(QBrush(Qt::red));
+    painter.setBrush(QBrush(Qt::green));
     dim = rand() % (max-min) + min;
     xa = rand() % (wid - dim*2)+dim; /* make sure the circle isn't cropped and is in an accessible zone */
     ya = rand() % (hei - dim*2)+dim;
     painter.drawEllipse( xa, ya, dim, dim);
     ui->label_2->setPixmap(pixmap);
-    return 0; /* TODO : Return status */
 }
 
 void fittsWindow::setData(int n_, int min_, int max_){
@@ -71,4 +70,5 @@ void fittsWindow::setData(int n_, int min_, int max_){
     n = n_;
     min = min_;
     max = max_;
+    results = * new QList<fittsResult>();
 }
