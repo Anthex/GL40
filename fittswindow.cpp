@@ -1,6 +1,8 @@
 #include "fittswindow.h"
 #include "ui_fittswindow.h"
 #include "resultswindow.h"
+//#include <QtCore/qmath.h>
+#include <math.h>
 
 int xa,ya,x_,y_,dim;
 int count;
@@ -29,7 +31,10 @@ void fittsWindow::on_label_2_clicked()
 
 
     QLineF line = QLineF(x_, y_, xa, ya);
-    fittsResult *res = new fittsResult(elapsedTime,0,line.length());
+
+    double theoricTime = this->a + this->b * log(1+(line.length()/dim))/log(2); //log base 2
+
+    fittsResult *res = new fittsResult(elapsedTime,theoricTime*1000,line.length());
 
     if(line.length() > dim && elapsedTime > 0){
         ui->label->setStyleSheet("QLabel { background-color: red }"); /* hors cible */
@@ -71,4 +76,9 @@ void fittsWindow::setData(int n_, int min_, int max_){
     min = min_;
     max = max_;
     results = * new QList<fittsResult>();
+}
+
+void fittsWindow::setConstants(double a_,double b_){
+    this->a = a_;
+    this->b = b_;
 }

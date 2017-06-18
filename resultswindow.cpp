@@ -36,10 +36,11 @@ void ResultsWindow::setFittsResults(QList<fittsResult> res){
     ui->label->setText(QString::number(results.count()));
 
 
-    for(int i = 0; i<results.count()-2; i++){
-        this->ui->tableWidget->item(i, 0)->setText(QString::number(results.at(i+1).theoTime));
-        this->ui->tableWidget->item(i, 1)->setText(QString::number(results.at(i+1).realTime));
+    for(int i = 0; i<results.count()-1; i++){
+        //this->ui->tableWidget->item(i, 0)->setText(QString::number(results.at(i+1).theoTime));
+        //this->ui->tableWidget->item(i, 1)->setText(QString::number(results.at(i+1).realTime));
         //this->ui->tableWidget->item(i, 2)->setText(QString::number(results.at(i).distance));
+        ui->label->setText( ui->label->text() + "  \n  " + QString::number(results.at(i+1).realTime)+ "  " + QString::number(results.at(i+1).theoTime));
     }
 
 }

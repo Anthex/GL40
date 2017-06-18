@@ -23,11 +23,13 @@ private slots:
 public slots:
     void displayScene();
     void setData(int,int,int);
+    void setConstants(double ,double);
 
 private:
     Ui::fittsWindow *ui;
     /* Default values */
     int n=5, min=50, max=100;
+    double a=.35  , b=.1;
     QList<fittsResult> results;
 };
 

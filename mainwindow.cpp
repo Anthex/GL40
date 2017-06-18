@@ -47,6 +47,7 @@ void MainWindow::on_pushButton_clicked()
     case 0:
         newFittsWindow = new fittsWindow();
         newFittsWindow->setData(ui->horizontalSlider->value(), ui->horizontalSlider_2->value(), ui->horizontalSlider_3->value());
+        newFittsWindow->setConstants(ui->doubleSpinBox->value(), ui->doubleSpinBox_2->value());
         newFittsWindow->show();
         break;
     case 1:
