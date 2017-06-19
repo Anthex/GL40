@@ -2,6 +2,7 @@
 #include "ui_resultswindow.h"
 #include <math.h>
 #include <stdlib.h>
+#include <QMessageBox>
 
 ResultsWindow::ResultsWindow(QWidget *parent) :
     QWidget(parent),
@@ -49,11 +50,13 @@ void ResultsWindow::recalculateAB(){
 
 void ResultsWindow::on_doubleSpinBox_valueChanged(double arg1)
 {
+    arg1; /* avoid warning */
     recalculateAB();
 }
 
 void ResultsWindow::on_doubleSpinBox_2_valueChanged(double arg1)
 {
+    arg1;
     recalculateAB();
 }
 
@@ -70,25 +73,67 @@ double ResultsWindow::calculateStatistics(){
 
 
     for(int i = 0; i<results.count()-1; i++){
-        currentErr = abs(results.at(i+1).theoTime - results.at(i+1).realTime);
-        baseError += currentErr;
-        painter.setBrush(QBrush(QColor(0,100,255)));
-        painter.setPen(Qt::NoPen);
-        painter.drawEllipse( results.at(i+1).distance*2, results.at(i+1).realTime/5, results.at(i+1).size/8, results.at(i+1).size/8);
-        painter.setBrush(QBrush(QColor(currentErr,255-currentErr,100)));
-        painter.drawEllipse( results.at(i+1).distance*2, results.at(i+1).theoTime/5, results.at(i+1).size/8, results.at(i+1).size/8);
+        /* Create and display Axes*/
         painter.setPen(QPen(QColor(220,220,220)));
         painter.drawLine(0,hei/2,wid,hei/2);
         painter.drawLine(wid/2,0,wid/2,hei);
         painter.drawText(wid-50,hei/2-4, "distance");
         painter.drawText(wid/2+2,10, "temps");
+
+        /* Display error lines if needed */
+        if(ui->checkBox->checkState()){
+            painter.setPen(QPen(QColor(currentErr,255-currentErr,0)));
+            painter.drawLine(results.at(i+1).distance*2+results.at(i+1).size/16,results.at(i+1).realTime/5,results.at(i+1).distance*2+results.at(i+1).size/16,results.at(i+1).theoTime/5);
+
+            }
+
+        currentErr = abs(results.at(i+1).theoTime - results.at(i+1).realTime);
+        baseError += currentErr;
+
+        painter.setPen(Qt::black);
+        painter.setBrush(QBrush(QColor(0,100,255)));
+        painter.drawEllipse( results.at(i+1).distance*2, results.at(i+1).realTime/5, results.at(i+1).size/8, results.at(i+1).size/8);
+        painter.setBrush(QBrush(QColor(currentErr,255-currentErr,0)));
+        painter.drawEllipse( results.at(i+1).distance*2, results.at(i+1).theoTime/5, results.at(i+1).size/8, results.at(i+1).size/8);
+
+
     }
+
+    /*highlight the selected row  */
+    if(currentrow >= 0){
+        painter.setBrush(QBrush(QColor(255,100,0)));
+        painter.setPen(QPen(QColor(255,100,0)));
+        painter.drawEllipse( results.at(currentrow).distance*2, results.at(currentrow).realTime/5, results.at(currentrow).size/8, results.at(currentrow).size/8);
+        painter.drawEllipse( results.at(currentrow).distance*2, results.at(currentrow).theoTime/5, results.at(currentrow).size/8, results.at(currentrow).size/8);
+        painter.drawLine(results.at(currentrow).distance*2+results.at(currentrow).size/16,results.at(currentrow).realTime/5,results.at(currentrow).distance*2+results.at(currentrow).size/16,results.at(currentrow).theoTime/5);
+    }
+
     double finalError = baseError / (results.count()-1);
-
-
 
     ui->label_4->setPixmap(pixmap);
 
-
     return finalError;
+}
+
+void ResultsWindow::on_checkBox_clicked()
+{
+    calculateStatistics();
+}
+
+void ResultsWindow::on_toolButton_clicked()
+{
+    QMessageBox::StandardButton reply;
+      reply = QMessageBox::question(this, "Supprimer résultat", "Voulez-vous supprimer le résultat sélectionné?", QMessageBox::Yes|QMessageBox::No);
+      if (reply == QMessageBox::Yes) {
+          this->results.removeAt(currentrow); /* header ignored */
+          calculateStatistics();
+          recalculateAB();
+      }
+}
+
+void ResultsWindow::on_listWidget_currentRowChanged(int currentRow)
+{
+    ui->toolButton->show();
+    this->currentrow = currentRow;
+    calculateStatistics();
 }

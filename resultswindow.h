@@ -23,9 +23,16 @@ private slots:
 
     void on_doubleSpinBox_2_valueChanged(double arg1);
 
+    void on_checkBox_clicked();
+
+    void on_toolButton_clicked();
+
+    void on_listWidget_currentRowChanged(int currentRow);
+
 private:
-    Ui::ResultsWindow *ui;
+    int currentrow = -1;
     QList<fittsResult> results;
+    Ui::ResultsWindow *ui;
     double meanerror;
 };
 
