@@ -34,7 +34,7 @@ void fittsWindow::on_label_2_clicked()
 
     double theoricTime = this->a + this->b * log(1+(line.length()/dim))/log(2); //log base 2
 
-    fittsResult *res = new fittsResult(elapsedTime,theoricTime*1000,line.length());
+    fittsResult *res = new fittsResult(elapsedTime,theoricTime*1000,line.length(),dim);
 
     if(line.length() > dim && elapsedTime > 0){
         ui->label->setStyleSheet("QLabel { background-color: red }"); /* hors cible */
