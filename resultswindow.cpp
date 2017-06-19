@@ -9,6 +9,7 @@ ResultsWindow::ResultsWindow(QWidget *parent) :
     ui(new Ui::ResultsWindow)
 {
     ui->setupUi(this);
+    ui->toolButton->hide();
 }
 
 ResultsWindow::~ResultsWindow()
@@ -125,9 +126,16 @@ void ResultsWindow::on_toolButton_clicked()
     QMessageBox::StandardButton reply;
       reply = QMessageBox::question(this, "Supprimer résultat", "Voulez-vous supprimer le résultat sélectionné?", QMessageBox::Yes|QMessageBox::No);
       if (reply == QMessageBox::Yes) {
-          this->results.removeAt(currentrow); /* header ignored */
-          calculateStatistics();
-          recalculateAB();
+          if(currentrow>0){
+              this->results.removeAt(currentrow);
+              ui->listWidget->setCurrentRow(currentrow - 1); /* avoid crash */
+              calculateStatistics();
+              recalculateAB();
+          }
+          else{QMessageBox::information(this, "Opération illégale", "Vous ne pouvez pas supprimer cette ligne, ce n'est pas un résultat");
+
+
+          }
       }
 }
 
