@@ -20,7 +20,7 @@ ResultsWindow::~ResultsWindow()
 void ResultsWindow::setFittsResults(QList<fittsResult> res){
     this->results = res;
 
-   ui->listWidget->addItem("Temps pris - Temps théorique ");
+   ui->listWidget->addItem("T réel \t T théorique \t différence (ms)");
 
 
     for(int i = 0; i<results.count()-1; i++){
@@ -38,11 +38,11 @@ void ResultsWindow::on_pushButton_3_clicked()
 
 void ResultsWindow::recalculateAB(){
     ui->listWidget->clear(); // erasing previous data
-    ui->listWidget->addItem("Temps pris - Temps théorique ");
+    ui->listWidget->addItem("T réel \t T théorique \t différence (ms)");
     for(int i = 0; i<results.count()-1; i++){
 
         double theoricTime = 1000 * (ui->doubleSpinBox->value() + ui->doubleSpinBox_2->value() * log(1+((double)results.at(i+1).distance / (double)results.at(i+1).size)));
-        ui->listWidget->addItem(QString::number(results.at(i+1).realTime) + " - " + QString::number(theoricTime));
+        ui->listWidget->addItem(QString::number(results.at(i+1).realTime) + " \t " + QString::number((int)theoricTime) + " \t " + QString::number(results.at(i+1).realTime - (int)theoricTime));
         results.at(i+1).theoTime = (int)theoricTime;
     }
     ui->label->setText("erreur moyenne : " + QString::number(calculateStatistics()) + "ms");
@@ -85,11 +85,13 @@ double ResultsWindow::calculateStatistics(){
         if(ui->checkBox->checkState()){
             painter.setPen(QPen(QColor(currentErr,255-currentErr,0)));
             painter.drawLine(results.at(i+1).distance*2+results.at(i+1).size/16,results.at(i+1).realTime/5,results.at(i+1).distance*2+results.at(i+1).size/16,results.at(i+1).theoTime/5);
+        }
 
-            }
 
         currentErr = abs(results.at(i+1).theoTime - results.at(i+1).realTime);
         baseError += currentErr;
+
+        ui->listWidget->item(i+1)->setBackgroundColor(QColor(255, 255-currentErr, 255-currentErr));
 
         painter.setPen(Qt::black);
         painter.setBrush(QBrush(QColor(0,100,255)));
@@ -100,7 +102,7 @@ double ResultsWindow::calculateStatistics(){
 
     }
 
-    /*highlight the selected row  */
+    /*highlight the selected item */
     if(currentrow >= 0){
         painter.setBrush(QBrush(QColor(255,100,0)));
         painter.setPen(QPen(QColor(255,100,0)));
@@ -108,6 +110,15 @@ double ResultsWindow::calculateStatistics(){
         painter.drawEllipse( results.at(currentrow).distance*2, results.at(currentrow).theoTime/5, results.at(currentrow).size/8, results.at(currentrow).size/8);
         painter.drawLine(results.at(currentrow).distance*2+results.at(currentrow).size/16,results.at(currentrow).realTime/5,results.at(currentrow).distance*2+results.at(currentrow).size/16,results.at(currentrow).theoTime/5);
     }
+
+    /* legend */
+    painter.setPen(QPen(QColor(0,0,0)));
+    painter.setBrush(QBrush(QColor(0,100,255)));
+    painter.drawEllipse( wid - 60, hei - 10, 5, 5);
+    painter.drawText(wid - 50, hei - 3, "réel");
+    painter.setBrush(QBrush(QColor(75,180,0)));
+    painter.drawEllipse( wid - 60, hei - 20, 5, 5);
+    painter.drawText(wid - 50, hei - 13, "théorique");
 
     double finalError = baseError / (results.count()-1);
 
@@ -131,6 +142,7 @@ void ResultsWindow::on_toolButton_clicked()
               ui->listWidget->setCurrentRow(currentrow - 1); /* avoid crash */
               calculateStatistics();
               recalculateAB();
+              ui->toolButton->hide();
           }
           else{QMessageBox::information(this, "Opération illégale", "Vous ne pouvez pas supprimer cette ligne, ce n'est pas un résultat");
 

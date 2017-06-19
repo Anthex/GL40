@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>642</width>
-    <height>440</height>
+    <height>511</height>
    </rect>
   </property>
   <property name="palette">
@@ -434,7 +434,7 @@
      <x>10</x>
      <y>10</y>
      <width>621</width>
-     <height>391</height>
+     <height>461</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -448,9 +448,9 @@
      <property name="geometry">
       <rect>
        <x>330</x>
-       <y>20</y>
-       <width>171</width>
-       <height>181</height>
+       <y>80</y>
+       <width>271</width>
+       <height>341</height>
       </rect>
      </property>
     </widget>
@@ -458,7 +458,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
+       <y>70</y>
        <width>311</width>
        <height>351</height>
       </rect>
@@ -565,10 +565,10 @@
     <widget class="QToolButton" name="toolButton">
      <property name="geometry">
       <rect>
-       <x>510</x>
-       <y>20</y>
-       <width>31</width>
-       <height>31</height>
+       <x>580</x>
+       <y>400</y>
+       <width>21</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="palette">
@@ -774,6 +774,25 @@
       <string>-</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>581</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cette fenêtre affiche les résultats du test de Fitts. Vous pouvez modifier les constantes dans la partie visualisation des résultats afin de trouver les constantes vérifiant le modèle de Fitts. Si une valeur est aberrante, vous pouvez la retirer en la selectionnant dans le tableau à droite puis en appuyant sur le bouton (-)</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -784,8 +803,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>536</x>
-     <y>410</y>
+     <x>556</x>
+     <y>480</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -797,8 +816,8 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>410</y>
+     <x>470</x>
+     <y>480</y>
      <width>81</width>
      <height>23</height>
     </rect>
