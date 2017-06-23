@@ -433,7 +433,7 @@
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>260</y>
+      <y>280</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -569,7 +569,7 @@
      <rect>
       <x>130</x>
       <y>220</y>
-      <width>106</width>
+      <width>121</width>
       <height>46</height>
      </rect>
     </property>
@@ -582,7 +582,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Erreur totale : </string>
+        <string>Erreur absolue : </string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

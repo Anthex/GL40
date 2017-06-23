@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QFileDialog>
 
 QDir *directory;
 int complexity; /* number of levels */
@@ -14,10 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     /* ui setup */
     ui->setupUi(this);
-    ui->textEdit->hide();
     ui->label_5->setText(QString::number(ui->horizontalSlider->value()));
     ui->label_6->setText(QString::number(ui->horizontalSlider_2->value()));
     ui->label_7->setText(QString::number(ui->horizontalSlider_3->value()));
+
+    ui->lineEdit_3->hide();
 
     /* Display Fitts equation image */
     QPixmap image("fittsEquation.png");
@@ -54,6 +56,11 @@ void MainWindow::on_pushButton_clicked()
         break;
     case 1:
         newTextWindow = new textInputWindow();
+        if(ui->checkBox_2->checkState()){
+            newTextWindow->setcorpus(ui->lineEdit_3->text());
+        }else{
+            newTextWindow->setlength(ui->spinBox->value());
+        }
         newTextWindow->show();
         break;
     case 2:
@@ -79,4 +86,20 @@ void MainWindow::on_pushButton_clicked()
         break;
     }
 
+}
+
+void MainWindow::on_toolButton_clicked()
+{
+    ui->lineEdit->setText(QFileDialog::getOpenFileName(this, "Sélectionner chemin "));
+}
+
+void MainWindow::on_checkBox_2_clicked()
+{
+    if (ui->checkBox_2->checkState()){
+        ui->lineEdit_3->show();
+        ui->spinBox->setEnabled(false);
+    }else{
+        ui->lineEdit_3->hide();
+        ui->spinBox->setEnabled(true);
+    }
 }

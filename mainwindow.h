@@ -20,6 +20,10 @@ public:
     ~MainWindow();
 private slots:
     void on_pushButton_clicked();
+    void on_toolButton_clicked();
+
+    void on_checkBox_2_clicked();
+
 private:
     fittsWindow * newFittsWindow;
     explorerWindow * newExplorerWindow;

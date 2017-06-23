@@ -27,7 +27,7 @@ void fittsWindow::on_label_2_clicked()
     x_ = ui->label_2->mapFromGlobal(QCursor::pos()).x();
     y_ = ui->label_2->mapFromGlobal(QCursor::pos()).y();
     int elapsedTime = t.elapsed();
-    ui->label->setText(QString::number(x_) + " ; " + QString::number(y_)+"    "+ QString::number(elapsedTime));
+    ui->label->setText("■");
 
 
     QLineF line = QLineF(x_, y_, xa, ya);
@@ -37,10 +37,10 @@ void fittsWindow::on_label_2_clicked()
     fittsResult *res = new fittsResult(elapsedTime,theoricTime*1000,line.length(),dim);
 
     if(line.length() > dim && elapsedTime > 0){
-        ui->label->setStyleSheet("QLabel { background-color: red }"); /* hors cible */
+        ui->label->setStyleSheet("QLabel { color: red }"); /* hors cible */
         /* Off target : discard the result don't increment*/
     }else{
-        ui->label->setStyleSheet("QLabel { background-color: lime }");/* sur cible  */
+        ui->label->setStyleSheet("QLabel { color: lime }");/* sur cible  */
         results.append(*res);   /* On target : save the result*/
         count++;
     }
