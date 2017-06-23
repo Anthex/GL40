@@ -17,7 +17,6 @@ public:
     void recalculateAB();
     double calculateStatistics();
 private slots:
-    void on_pushButton_3_clicked();
 
     void on_doubleSpinBox_valueChanged(double arg1);
 
@@ -34,6 +33,7 @@ private:
     QList<fittsResult> results;
     Ui::ResultsWindow *ui;
     double meanerror;
+    double meantime;
 };
 
 #endif // RESULTSWINDOW_H

@@ -3,9 +3,11 @@
 #include <QMessageBox>
 #include <QString>
 #include <QPixmap>
+#include <QFileInfo>
+#include <QMessageBox>
 
 QDir *directory;
-
+int complexity; /* number of levels */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -55,14 +57,25 @@ void MainWindow::on_pushButton_clicked()
         newTextWindow->show();
         break;
     case 2:
-        newExplorerWindow = new explorerWindow();
-        newExplorerWindow->setStart(ui->lineEdit_2->text());
-        newExplorerWindow->setTarget(ui->lineEdit->text());
-        newExplorerWindow->show();
-        break;
-    case 3:
-        newCmdWindow = new cmdWindow();
-        newCmdWindow->show();
+        if(QDir(ui->lineEdit->text()).exists() || QFileInfo::exists(ui->lineEdit->text()))
+        {
+            complexity = ui->lineEdit->text().count(QLatin1Char('/')) -  ui->lineEdit_2->text().count(QLatin1Char('/'));
+            newExplorerWindow = new explorerWindow();
+            newExplorerWindow->setStart(ui->lineEdit_2->text());
+            newExplorerWindow->setTarget(ui->lineEdit->text());
+            newExplorerWindow->setResult(ui->doubleSpinBox_3->value(),ui->doubleSpinBox_4->value(),ui->doubleSpinBox_6->value(),ui->doubleSpinBox_5->value());
+            newExplorerWindow->setnk(complexity);
+            newExplorerWindow->setnm(1);
+            if(ui->checkBox->checkState()){
+                newExplorerWindow->setnh(1);
+            }else{
+                newExplorerWindow->setnh(0);
+            }
+            newExplorerWindow->setnp(complexity);
+            newExplorerWindow->show();
+        }else{
+            QMessageBox::information(this, "Cible inexistante", "Le dossier ou fichier spécifié n'existe pas, merci de spécifier un chemin valide");
+        }
         break;
     }
 

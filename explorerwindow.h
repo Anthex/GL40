@@ -4,6 +4,7 @@
 #include <QFileSystemModel>
 #include <QDir>
 #include <QString>
+#include "explorerresult.h"
 
 namespace Ui {
 class explorerWindow;
@@ -22,8 +23,13 @@ public slots:
     void setTarget(QString);
     void setStart(QString);
     bool checkIfFound(QModelIndex);
-
+    void setResult(double, double, double, double);
+    void setnk(int nk);
+    void setnp(int np);
+    void setnm(int nm);
+    void setnh(int nh);
 private:
+    explorerResult * result;
     Ui::explorerWindow *ui;
     QFileSystemModel *model ;
     QString target="null", start="null";

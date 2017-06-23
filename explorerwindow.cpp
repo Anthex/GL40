@@ -1,11 +1,17 @@
 #include "explorerwindow.h"
 #include "ui_explorerwindow.h"
+#include "explorerresult.h"
+#include "explorerresultswindow.h"
+#include <QTime>
+
+QTime timer;
 
 explorerWindow::explorerWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::explorerWindow)
 {
     ui->setupUi(this);
+    timer.start();
 }
 
 explorerWindow::~explorerWindow()
@@ -34,10 +40,42 @@ bool explorerWindow::checkIfFound(QModelIndex index){
         /* Testing - To implement */
         ui->label_2->setStyleSheet("QLabel { background-color : #999999; color : red; }");
         ui->label_2->setText("TROUVE");
-
+        int realtime = timer.elapsed();
+        result->realTime = realtime;
+        ExplorerResultsWindow *reswindow = new ExplorerResultsWindow();
+        reswindow->result = this->result;
+        reswindow->show();
+        reswindow->updateInfo();
+        this->close();
         return true;
     }
     else{
         return false;
     }
 }
+
+void explorerWindow::setResult(double tk, double tp, double tm, double th){
+    explorerResult * newRes = new explorerResult();
+    result = newRes;
+    result->tk = tk;
+    result->tp = tp;
+    result->tm = tm;
+    result->th = th;
+}
+
+void explorerWindow::setnk(int nk){
+    this->result->nbK = nk;
+}
+
+void explorerWindow::setnp(int np){
+    this->result->nbP = np;
+}
+
+void explorerWindow::setnm(int nm){
+    this->result->nbM = nm;
+}
+
+void explorerWindow::setnh(int nh){
+    this->result->nbH = nh;
+}
+

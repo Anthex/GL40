@@ -31,11 +31,6 @@ void ResultsWindow::setFittsResults(QList<fittsResult> res){
     recalculateAB();
 }
 
-void ResultsWindow::on_pushButton_3_clicked()
-{
-    recalculateAB();
-}
-
 void ResultsWindow::recalculateAB(){
     ui->listWidget->clear(); // erasing previous data
     ui->listWidget->addItem("T réel \t T théorique \t différence (ms)");
@@ -45,7 +40,7 @@ void ResultsWindow::recalculateAB(){
         ui->listWidget->addItem(QString::number(results.at(i+1).realTime) + " \t " + QString::number((int)theoricTime) + " \t " + QString::number(results.at(i+1).realTime - (int)theoricTime));
         results.at(i+1).theoTime = (int)theoricTime;
     }
-    ui->label->setText("erreur moyenne : " + QString::number(calculateStatistics()) + "ms");
+    ui->label->setText("erreur moyenne : " + QString::number(calculateStatistics()) + "ms, soit " + QString::number((int)(calculateStatistics()/meantime*100)) + "%");
 }
 
 
@@ -66,6 +61,7 @@ double ResultsWindow::calculateStatistics(){
     int wid,hei;
     int currentErr;
     double baseError = 0;
+    meantime = 0;
     wid = ui->label_4->geometry().width();
     hei = ui->label_4->geometry().height();
     QPixmap pixmap(wid,hei);
@@ -87,9 +83,9 @@ double ResultsWindow::calculateStatistics(){
             painter.drawLine(results.at(i+1).distance*2+results.at(i+1).size/16,results.at(i+1).realTime/5,results.at(i+1).distance*2+results.at(i+1).size/16,results.at(i+1).theoTime/5);
         }
 
-
         currentErr = abs(results.at(i+1).theoTime - results.at(i+1).realTime);
         baseError += currentErr;
+        meantime += results.at(i+1).theoTime;
 
         ui->listWidget->item(i+1)->setBackgroundColor(QColor(255, 255-currentErr, 255-currentErr));
 
@@ -121,6 +117,8 @@ double ResultsWindow::calculateStatistics(){
     painter.drawText(wid - 50, hei - 13, "théorique");
 
     double finalError = baseError / (results.count()-1);
+    meantime = meantime / (results.count()-1);
+    meanerror = finalError;
 
     ui->label_4->setPixmap(pixmap);
 
@@ -144,9 +142,9 @@ void ResultsWindow::on_toolButton_clicked()
               recalculateAB();
               ui->toolButton->hide();
           }
-          else{QMessageBox::information(this, "Opération illégale", "Vous ne pouvez pas supprimer cette ligne, ce n'est pas un résultat");
+          else{
 
-
+              QMessageBox::information(this, "Opération illégale", "Vous ne pouvez pas supprimer cette ligne, ce n'est pas un résultat");
           }
       }
 }

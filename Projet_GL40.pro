@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     textinputwindow.cpp \
     fittswindow.cpp \
     resultswindow.cpp \
-    fittsresult.cpp
+    fittsresult.cpp \
+    explorerresultswindow.cpp \
+    explorerresult.cpp
 
 HEADERS  += mainwindow.h \
     clickablelabel.h \
@@ -30,11 +32,14 @@ HEADERS  += mainwindow.h \
     textinputwindow.h \
     fittswindow.h \
     resultswindow.h \
-    fittsresult.h
+    fittsresult.h \
+    explorerresultswindow.h \
+    explorerresult.h
 
 FORMS    += mainwindow.ui \
     explorerwindow.ui \
     cmdwindow.ui \
     textinputwindow.ui \
     fittswindow.ui \
-    resultswindow.ui
+    resultswindow.ui \
+    explorerresultswindow.ui
