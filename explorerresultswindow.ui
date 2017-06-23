@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
+    <width>246</width>
     <height>314</height>
    </rect>
   </property>
@@ -426,14 +426,14 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Résultats - Keystroke</string>
+   <string>Résultats</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>280</y>
+      <x>80</x>
+      <y>270</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -445,8 +445,8 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>20</y>
+      <x>20</x>
+      <y>10</y>
       <width>201</width>
       <height>171</height>
      </rect>
@@ -567,8 +567,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>220</y>
+      <x>60</x>
+      <y>200</y>
       <width>121</width>
       <height>46</height>
      </rect>
