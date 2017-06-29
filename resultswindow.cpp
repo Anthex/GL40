@@ -89,7 +89,7 @@ double ResultsWindow::calculateStatistics(){
 
         ui->listWidget->item(i+1)->setBackgroundColor(QColor(255, 255-currentErr, 255-currentErr));
 
-        painter.setPen(Qt::black);
+        painter.setPen(Qt::NoPen );
         painter.setBrush(QBrush(QColor(0,100,255)));
         painter.drawEllipse( results.at(i+1).distance*2, results.at(i+1).realTime/5, results.at(i+1).size/8, results.at(i+1).size/8);
         painter.setBrush(QBrush(QColor(currentErr,255-currentErr,0)));
